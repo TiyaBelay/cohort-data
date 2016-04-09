@@ -1,9 +1,7 @@
 def unique_houses(filename):
     """TODO: Create a set of student houses.
-
     Iterates over the cohort_data.txt file to look for all of the included house names
     and creates a set called 'houses' that holds those names.
-
         ex. houses = set([ "Hufflepuff",
                     "Slytherin",
                     "Ravenclaw",
@@ -11,7 +9,6 @@ def unique_houses(filename):
                     "Dumbledore's Army",
                     "Order of the Phoenix"
             ])
-
     """
     new_unique_houses = open(filename)
 
@@ -26,6 +23,7 @@ def unique_houses(filename):
     return houses
 
 
+
 def sort_by_cohort(filename):
     """TODO: Sort students by cohort.
 
@@ -36,6 +34,7 @@ def sort_by_cohort(filename):
         ex. all_students = [winter_15, spring_15, summer_15, tas]
 
     """
+    students_cohorts_file = open(filename)
 
     all_students = []
     winter_15 = []
@@ -43,10 +42,34 @@ def sort_by_cohort(filename):
     summer_15 = []
     tas = []
 
-    # Code goes here
+    for line in students_cohorts_file:
+        line = line.rstrip()  # removes trailing whitespace
+        line = line.split('|')
+        student_name_list = line[:2]  # get student first and last name
+        student_first_last_name = student_name_list[0] + ' ' + student_name_list[1]
+        cohort = line[4]  # get cohort information
+        ta_name = line[3]  # get ta name
+
+        # print student_first_last_name
+        # print cohort
+        # print ta_name
+
+        if cohort == "Winter 2015":
+            winter_15.append(student_first_last_name)
+        elif cohort == "Spring 2015":
+            spring_15.append(student_first_last_name)
+        elif cohort == "Summer 2015":
+            summer_15.append(student_first_last_name)
+
+    # print "Winter: ", winter_15
+    # print "Spring: ", spring_15
+    # print "Summer: ", summer_15
+    all_students.append(winter_15)
+    all_students.append(spring_15)
+    all_students.append(summer_15)
 
     return all_students
-
+    students_cohorts_file.close()
 
 def students_by_house(filename):
     """TODO: Sort students by house.
@@ -153,12 +176,11 @@ def find_house_members_by_student_name(student_list):
 
 # Here is some useful code to run these functions!
 
-print unique_houses("cohort_data.txt")
-# print sort_by_cohort("cohort_data.txt")
+# print unique_houses("cohort_data.txt")
+print sort_by_cohort("cohort_data.txt")
 # print students_by_house("cohort_data.txt")
 # all_students_data = all_students_tuple_list("cohort_data.txt")
 # print all_students_data
 # find_cohort_by_student_name(all_students_data)
 # print find_name_duplicates("cohort_data.txt")
 # find_house_members_by_student_name(all_students_data)
-
